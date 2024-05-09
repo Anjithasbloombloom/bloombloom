@@ -1,0 +1,76 @@
+.social {
+    margin-bottom: 15px;
+    width: 250px;
+    height: 30px; 
+    border-radius:2px;
+    font-size: 15px;
+    transition: 0.2s;
+    border: 0.5px solid #141414;
+    font-family: 'Inter', sans-serif; 
+    background-repeat: no-repeat;
+    background-position: 10px center; 
+    text-decoration: none;
+    margin-left: 30px;
+    padding: 2px;
+}
+
+/* Only add margin to the buttons except the last one */
+.social:not(:last-child) {
+    margin-right: 10px;
+}
+
+.social:hover {
+    cursor: pointer;
+}
+
+.social-container {
+    width: fit-content;
+    height: fit-content;
+}
+
+.right-box a:hover {
+    text-decoration: none;
+}
+
+.social.apple {
+    background-color: white;
+    color: black;
+}
+
+.social.apple:hover {
+    background-color: black;
+    color: white;
+}
+
+.social.google {
+    background-color: white;
+    color: #141414;
+}
+
+.social.google:hover {
+    background-color: #D3D3D3;
+    color: black;
+}
+
+
+/* Style the footer */
+.social.facebook {
+    background-color: #1877F2; /* Blue color for Facebook */
+    color: white; /* Text color */
+}
+
+.social.facebook:hover {
+    background-color: #0d5cb6; /* Darker shade of blue on hover */
+    color: white; /* Text color */
+}
+
+
+.social + .social {
+    margin-left: 5px; /* Add margin between buttons */
+}
+
+.social-container a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

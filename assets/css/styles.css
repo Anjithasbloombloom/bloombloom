@@ -1,0 +1,134 @@
+.square {
+    width: 758px;
+    height: 458px; /* Set the height to match the width for a square */
+    border: 1px solid black;
+    margin-top:10px; /* Half of the height */
+    margin-bottom: 10px;
+    justify-content: left;
+    font-family: Inter;
+}
+/* Reset default margin and padding */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+/* Ensure full height for wrapper */
+ .wrapper {
+    min-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} 
+
+/* Place header at the top */
+header {
+    flex-shrink: 0;
+}
+
+/* Place footer at the bottom */
+footer {
+    flex-shrink: 0;
+}
+
+/* Style for social buttons */
+.social-container {
+    margin-bottom: 10px;
+}
+
+.b{
+    padding-left: 55px;
+    padding-top: 45px;
+}
+
+/* Style for line between columns */
+
+
+/* .left-column::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 1px;
+    background-color:black;
+    margin-right: 1px; 
+} */
+
+.continue-button {
+    background-color: #0735D0; /* Blue color */
+    color: #fff; /* White text color */
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.continue-button:hover {
+    background-color: #0056b3; /* Darker shade of blue on hover */
+}
+/* Style for registration form */
+.left-column form input {
+    /* width: calc(100% - 20px); Adjust the width to leave space for padding */
+    margin-bottom: 10px;
+    padding: 5px; /* Add padding to the inputs */
+    width: 250px;
+}
+
+.left-column form input[type="submit"] {
+    width: 100%; /* Set the width of the submit button to 100% */
+}
+
+.left-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.right-title {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24.2px;
+    text-align: center;
+    color: #959595;
+    margin-bottom: 20px;
+}
+
+/* Style for line between columns */
+.left-column {
+    border-right: 2px solid #141414;
+    padding-right: 15px;
+    height: fit-content;
+}
+
+.continue-button {
+    background-color: #0735D0; /* Blue color */
+    color: #fff; /* White text color */
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 250px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.continue-button:hover {
+    background-color: #0056b3; /* Darker shade of blue on hover */
+}
+
+.login-options{
+    display: flex;
+    justify-content: center;
+    height: 70%;
+    align-items: center;
+}
+
+.left-svg div{
+    margin-bottom: 10px;
+}
+
+.login{
+    font-size: 13px
+}

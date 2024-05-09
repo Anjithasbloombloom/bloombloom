@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+            <html>
+            <head>
+                <title>Registration Page</title>
+            </head>
+            <body bgcolor="white">
+                <br>
+                <br>
+                <!-- <form method="POST" action="/select/{{ b.id }}/ ">  -->
+                <form method="POST" action="/select/{{ b.id }}/" id="course_form"> 
+                    {% csrf_token %}
+                    <div>
+                        <p>
+                            <h3>
+                              Selected Featured Course 
+                            </h3>
+                        </p>
+                    </div>
+                    <p>Course ID</p>
+                    <div id="course_id">{{ b.id }}</div>
+                    <p>Course_id</p>
+                    <div>
+                        <input type="text" name="course_id" value="{{ b.id }}"/>
+                    </div>
+                    <p>Course Name</p>
+                    <div>
+                        <input type="text" name="course_name" value="{{ b.course_name }}"/>
+                    </div>
+                    <p>Course Description</p>
+                    <div>
+                        <input type="text" name="course_description" value="{{ b.course_description }}"/> 
+                    </div>
+                    <p>Course course_date</p>
+                    <div>
+                        <input type="date" name="course_date" value="{{ b.course_date }}" required/>  
+                    </div>
+                    <p>Course Authors</p>
+                    <div>
+                        {% for author_object in b.author_objects %}
+                        <input type="checkbox" name="course_authors" value="{{ author_object.id }}">
+                        <label>{{ author_object.author_name }}</label>
+                        <br>
+                        {% endfor %}
+                    </div>
+        
+        <p>Course Mode</p>
+        <div>
+            <input type="text" name="course_mode" value="{{ b.course_mode_id }}"/> 
+        </div>
+        <p>Course Price</p>
+        <div>
+            <input type="text" name="course_price" value="{{ b.course_price }}"/> 
+        </div>
+        <p>Course Learning Credits</p>
+        <div>
+            <input type="text" name="course_learning_credits" value="{{ b.course_learning_credits }}"/> 
+        </div>
+        <p>Course Location</p>
+        <div>
+            <input type="text" name="course_location" value="{{ b.course_location_id }}"/> 
+        </div>
+        <p>Course Sponsors</p>
+        <div>
+            {% for sponser_object in b.sponser_objects %}
+            <input type="checkbox" name="course_sponsors" value="{{ sponser_object.id }}">
+            <label>{{ sponser_object.sponsor_name }}</label>
+            <br>
+            {% endfor %}
+        </div>
+        <p>Course Rating</p>
+        <div>
+            <input type="text" name="course_rating" value="{{ b.course_rating }}"/>  
+        </div>
+                    <button type="submit">update</button>
+                   
+                </form>
+                <button id="add_button">Add</button>
+                <script>
+                    document.getElementById('add_button').addEventListener('click', function() {
+                        var form = document.getElementById('course_form');
+                        let id=document.getElementById("course_id").innerHTML
+                        console.log(id)
+                        form.action = "/add_new_course/"+id;  // Change the form action to a different URL for adding new course
+                        form.submit();
+                    });
+                </script>
+            </body>
+            </html>
+            

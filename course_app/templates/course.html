@@ -1,0 +1,325 @@
+ {% load static %}
+{% load socialaccount %}
+ {% include 'header.html' %} 
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+<style>
+  .rambo{
+    height: 500px;
+    padding-top: 50px;   
+  }
+  .hello{
+    padding-top: 50px; 
+    margin-left: 20px;
+    margin-right: 20px;
+    height: 357px;
+    background-color:white
+  }
+  .hai{
+    height:500px;
+    background-color:grey;
+    margin-left: 20px;
+    margin-right: 20px; 
+    /* padding-top: 50px; */
+  }
+  body{
+    background: #F8F8F8;
+    font-family: Inter;
+}
+
+.explore-container{
+    background-color: white;
+    margin: 50px;
+}
+
+.explore-filter-container{
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+}
+
+.explore-filter-container input{
+    width: 320px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    color: #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+    background-image: url('../img/Search.png');
+    background-position: 10px 10px; 
+    background-repeat: no-repeat;
+    padding: 10px 20px 10px 40px;
+}
+
+.explore-filter-dropdowns{
+    display: flex;
+    justify-content: center;
+} -->
+
+<!-- .explore-filter-box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 30px;
+}
+
+.explore-filter-svg{
+    margin-left: 5px;
+}
+
+.explore-filter-dropdowns{
+    display: flex;
+    justify-content: center;
+}
+
+.explore-filter-box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 30px;
+    margin-bottom: 54px;
+}
+
+.explore-filter-svg{
+    margin-left: 5px;
+}
+
+
+.explore-filter-element {
+    cursor: pointer;
+  }
+.explore-filter-svg{
+    cursor: pointer;
+}
+  .explore-filter-box {
+    position: relative;
+    display: flex;
+  }
+
+
+  .dropdown-options {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 1;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        padding: 8px 0;
+        border: 1px solid #ccc;
+    }
+
+    .dropdown-options button {
+        display: block;
+        width: 100%;
+        padding: 8px 16px;
+        text-align: left;
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+    }
+
+    .dropdown-options button:hover {
+        background-color: #ddd;
+    }
+
+    .submenu {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 100%;
+        z-index: 1;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        padding: 8px 0;
+        border: 1px solid #ccc;
+    }
+
+    .submenu button {
+        display: block;
+        width: 100%;
+        padding: 8px 16px;
+        text-align: left;
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+    }
+
+    .submenu button:hover {
+        background-color: #ddd;
+    }
+
+    .show {
+        display: block;
+    }
+
+
+
+ 
+   .dropdown-options {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-options .submenu {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 120px;
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+
+    .dropdown-options .submenu button {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        background-color: transparent;
+        border: none;
+        width: 100%;
+        text-align: left;
+    }
+
+    .dropdown-options .submenu button:hover {
+        background-color: #ddd;
+    }
+
+    .dropdown-options.show .submenu {
+        display: block;
+    }  
+
+
+
+</style>
+{% block body %}
+ <div class="rambo">
+    <div class="hai">
+                 heyyyyyyyyyyyyyyyyyyyy
+    </div>
+    </div> 
+     <div class="hello">
+        <div class="explore-container">
+            <div class="explore-filter-container">
+                <form method="post" action="#">
+                    <input type="text" placeholder="Search through Bloombloom" />
+                </form>
+                <div class="explore-filter-dropdowns">
+                    <div class="explore-filter-box">
+                        <div class="explore-filter-element">
+                            Mode
+                        </div>
+                        <div class="explore-filter-svg" id="mode-dropdown">
+                            <svg width="13" height="9" viewBox="0 0 13 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M1 1L6.46666 7.15052L11.9333 1" stroke="#959595" stroke-width="1.25"/>
+                            </svg>  
+                            <div id="mode-options" class="dropdown-options">
+                                 <!-- Dropdown options  -->
+                                <button onclick="selectMode('online')">online</button>
+                                <div id="online-options" class="submenu">
+                                     <!-- Submenu options for Online mode  -->
+                                     <button onclick="selectMode('live')">Live</button>
+                                    <button onclick="selectMode('on-demand')">On-Demand</button>
+                                     <!-- Add more submenu options as needed --> -->
+                                </div>
+                                <button onclick="selectMode('offline')">offline</button>
+                                <button onclick="selectMode('hybrid')">hybrid</button> 
+                                <!-- Add more dropdown options as needed -->
+                             </div>
+                        </div>
+            
+                        </div>
+                        </div>
+                    <div class="explore-filter-box">
+                        <div class="explore-filter-element">
+                            Stage 
+                         </div>
+                        <div class="explore-filter-svg">
+                            <svg width="13" height="9" viewBox="0 0 13 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M1 1L6.46666 7.15052L11.9333 1" stroke="#959595" stroke-width="1.25"/>
+                            </svg>  
+                        </div>
+                    </div> 
+                    <div class="explore-filter-box">
+                        <div class="explore-filter-element">
+                            Type
+                        </div>
+                    </div> -->
+                    </div>
+                     <div class="explore-filter-box">
+                        <div class="explore-filter-element">
+                            Categories
+
+                            
+                        </div>
+                        <div class="explore-filter-svg"> 
+                            <svg width="13" height="9" viewBox="0 0 13 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M1 1L6.46666 7.15052L11.9333 1" stroke="#959595" stroke-width="1.25"/>
+                            </svg>                  
+                        </div>
+                    </div>
+                     
+                    <div class="explore-filter-box">
+                        <div class="explore-filter-element">
+                            Sectors
+                        </div>
+                        <div class="explore-filter-svg">
+                            <svg width="13" height="9" viewBox="0 0 13 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M1 1L6.46666 7.15052L11.9333 1" stroke="#959595" stroke-width="1.25"/>
+                            </svg>   
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div>hi</div>
+                
+                
+             </div>
+        </div>
+        </div> 
+     <!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Course</title>
+</head>
+<body>
+     <h1>Create Course</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
+
+{% endblock %}
+ {% include 'footer.html' %}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var modeDropdown = document.getElementById('mode-dropdown');
+        var modeOptions = document.getElementById('mode-options');
+
+        modeDropdown.addEventListener('click', function(event) {
+            event.stopPropagation(); // Prevent the click event from bubbling up
+            modeOptions.classList.toggle('show');
+        });
+    });
+
+    function toggleSubmenu(mode) {
+        var submenu = document.getElementById(mode + '-options');
+        submenu.classList.toggle('show');
+    }
+
+    function selectMode(mode) {
+        console.log("Selected mode:", mode);
+        // Add logic to handle the selected mode
+    }
+</script> 
+
+
+

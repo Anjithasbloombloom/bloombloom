@@ -1,0 +1,51 @@
+<h1>Create Course</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Create Course</button>
+</form>
+
+<!-- Display existing courses -->
+{% if courses %}
+    <h2>Existing Courses:</h2>
+    <ul>
+    {% for course in courses %}
+        <li>Course Name: {{ course.course_name }}</li>
+        <li>Description: {{ course.course_description }}</li>
+        <li>Date: {{ course.course_date }}</li>
+        
+        <!-- Displaying Authors -->
+        <li>Authors:
+            <ul>
+            {% for author in course.course_authors.all %}
+                <li>{{ author }}</li>
+            {% endfor %}
+            </ul>
+        </li>
+
+        <!-- Displaying Mode -->
+        <li>Mode: {{ course.course_mode.mode_name }}</li>
+
+        <li>Price: {{ course.course_price }}</li>
+        <li>Learning Credits: {{ course.course_learning_credits }}</li>
+        
+        <!-- Displaying Location -->
+        <li>Location: {{ course.course_location.location_name }}</li>
+        
+        <!-- Displaying Sponsors -->
+        <li>Sponsors:
+            <ul>
+            {% for sponsor in course.course_sponsors.all %}
+                <li>{{ sponsor }}</li>
+            {% endfor %}
+            </ul>
+        </li>
+
+        <li>Rating: {{ course.course_rating }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No courses available.</p>
+{% endif %}
+
+

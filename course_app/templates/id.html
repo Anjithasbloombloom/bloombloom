@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>course_name</th>
+                <th>course_description</th>
+                <!-- <th>course_date</th>
+                <th>course_authors</th>
+                <th>course_mode</th>
+                <th>course_price</th>
+                <th>course_learning_credits</th>
+                <th>course_location</th>
+                <th>course_sponsors</th>
+                <th>course_rating</th> -->
+            </tr>
+            <!-- <button type="submit">edit</button> -->
+        </thead>
+        <tbody>
+            {% for item in key %}
+            <tr>
+                <td>{{ item.id }}</td>
+                <td>{{ item.course_name }}</td>
+                <td>{{ item.course_description }}</td>
+                <!-- <td>{{ item.course_date }}</td>
+                <td>{{ item.course_authors }}</td>
+                <td>{{ item.course_mode }}</td>
+                <td>{{ item.course_price }}</td>
+                <td>{{ item.course_learning_credits }}</td>
+                <td>{{ item.course_location }}</td>
+                <td>{{ item.course_sponsors }}</td>
+                <td>{{ item.course_rating }}</td> -->
+                <td>
+                <a href="/select/{{item.id}}">select</a><br>
+                <a href="/delete/{{item.id}}">delete</a><br>
+
+                    
+                
+
+                </td>
+               
+            </tr>
+            {% endfor %}
+            
+        </tbody>
+</body>
+</html>

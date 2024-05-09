@@ -1,0 +1,136 @@
+/* Footer Section */
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    width: 100%;
+    margin-top: auto;
+}
+
+footer a
+{
+    font-family: "Inter", Arial, sans-serif;
+    color:#959595;
+    font-size: 12px;
+}
+
+.footer1{
+    background: #141414; 
+}
+
+.footer-top{
+    width: 100%;
+}
+
+.footer_bottom{
+    border-top: 1px #2e2e2e solid;
+    background-color: #2e2e2e;
+    height: 75px;
+}
+
+.container{
+    display: flex;
+    justify-content:space-between;
+    width: 100%;
+    margin-bottom: 20px;
+    padding-top: 20px;
+}
+.para1{
+    color: #959595;
+    font-family: "Inter", Arial, sans-serif;
+    padding-right:2px;
+    font-size: 13px;
+    width: 60%;
+    margin-top: 15px;
+    line-height: 20px;
+}
+
+.footer_container{
+    display: flex;
+    justify-content: space-between;
+    padding-left: 5px;
+    height: 100%;
+}
+.footer_menu{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 20px;
+}
+
+.footer_menu div{
+     padding-right: 40px; 
+    color: #959595;
+    font-family: "Inter", Arial, sans-serif;
+    font-size: 13px;
+    padding-left: 18px;
+}
+
+.col2{
+      width: 50%; 
+      padding-left: 100px;
+      padding-right: 40px;
+      padding-bottom:20px;
+}
+
+.col1{
+    padding-left: 40px;
+    padding-top: 30px;
+}
+
+ .footer_componentsa
+{
+    font-family: "Inter", Arial, sans-serif;
+    color:white;
+    font-size: 16px;
+    padding-bottom:20px;
+    padding-right: 5px;
+   
+
+} 
+.footer_componentsb{
+    font-family: "Inter", Arial, sans-serif;
+    color:white;
+    font-size: 16px;
+    padding-top: 35px;
+    padding-left: 10px;
+   
+}
+
+.list_componentsb div{
+    font-family: "Inter", Arial, sans-serif;
+    color:#959595;
+    font-size: 12px;
+    list-style: none;
+    align-items: start;
+    justify-content: left;
+    padding-top: 5px;
+    padding-left: 10px;
+
+}
+
+.colb{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+    margin-right: 70px;
+}
+
+.colb-child{
+    margin-right: 40px;
+}
+
+.title{
+    color: #FFFFFF;
+    font-family: Inter;
+    margin-bottom: 20px;
+    text-wrap: nowrap;
+}
+
+.elements{
+    margin-bottom: 10px;
+}

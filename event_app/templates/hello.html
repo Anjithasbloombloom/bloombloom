@@ -1,0 +1,72 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .dropdown {
+  position: relative;
+  display: inline-block;
+  width: 280px; 
+  background-color: white;
+  border: 1px solid #ccc;
+  height: 50px;
+  padding-left: 10px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.plus-button {
+            background-color:white;
+            color: rgb(30, 29, 29);
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            position: absolute; 
+            top: 5px; 
+            right: 10px; 
+            cursor: pointer;
+}
+</style>
+<body>
+    <div class="topics">
+        <h2>Topics</h2>
+    </div>
+    <div class="dropdown">
+      <p>Welcome</p>
+        <button class="plus-button">+</button>
+        <div class="dropdown-content">
+          <a href="#">Gining life to your design <br>
+        <p>25 November at 4 PM</p><br>
+        <p>importing your design files in after effects</p></a>
+        </div>
+      </div>
+      
+</body>
+</html>

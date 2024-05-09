@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Course</title>
+</head>
+<body>
+    <h1>Create Course</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>
+            <label for="id_course_name">Course Name:</label>
+            <input type="text" id="id_course_name" name="course_name" placeholder="Enter course name" required>
+        </div>
+        
+        <div>
+            <label for="id_course_description">Course Description:</label>
+            <textarea id="id_course_description" name="course_description" placeholder="Enter course description" required></textarea>
+        </div>
+        
+        <div>
+            <label for="id_course_date">Course Date:</label>
+            <input type="date" id="id_course_date" name="course_date" required>
+        </div>
+        
+        <div>
+            <label for="id_course_price">Course Price:</label>
+            <input type="number" id="id_course_price" name="course_price" placeholder="Enter course price" required>
+        </div>
+        
+        <div>
+            <label for="id_course_learning_credits">Course Learning Credits:</label>
+            <input type="number" id="id_course_learning_credits" name="course_learning_credits" placeholder="Enter learning credits" required>
+        </div>
+        
+        <div>
+            <label for="id_course_lifetime_learners">Course Lifetime Learners:</label>
+            <input type="number" id="id_course_lifetime_learners" name="course_lifetime_learners" placeholder="Enter lifetime learners">
+        </div>
+        
+        <div>
+            <label for="id_course_rating">Course Rating:</label>
+            <input type="number" id="id_course_rating" name="course_rating" step="0.01" placeholder="Enter course rating" required>
+        </div>
+        
+        <div>
+            <label for="id_course_num_ratings">Number of Ratings:</label>
+            <input type="number" id="id_course_num_ratings" name="course_num_ratings" placeholder="Enter number of ratings" required>
+        </div>
+        
+        <div>
+            <label for="id_course_first_published">Course First Published:</label>
+            <input type="date" id="id_course_first_published" name="course_first_published" required>
+        </div>
+        
+        <div>
+            <label for="id_course_times_launched">Course Times Launched:</label>
+            <input type="number" id="id_course_times_launched" name="course_times_launched" placeholder="Enter times launched" required>
+        </div>
+        
+        <div>
+            <label for="id_course_num_interested">Number of Interested:</label>
+            <input type="number" id="id_course_num_interested" name="course_num_interested" placeholder="Enter number of interested">
+        </div>
+        
+        <div>
+            <label for="id_course_num_hours">Number of Hours:</label>
+            <input type="number" id="id_course_num_hours" name="course_num_hours" placeholder="Enter number of hours">
+        </div>
+        
+        <div>
+            <label for="id_course_num_days">Number of Days:</label>
+            <input type="number" id="id_course_num_days" name="course_num_days" placeholder="Enter number of days">
+        </div>
+        
+        <div>
+            <label for="id_course_skills">Course Skills:</label>
+            <input type="text" id="id_course_skills" name="course_skills" placeholder="Enter course skills">
+        </div>
+        
+        <div>
+            <label for="id_more_about_course">More About Course:</label>
+            <textarea id="id_more_about_course" name="more_about_course" placeholder="Enter more about course"></textarea>
+        </div>
+        
+        <div>
+            <label for="id_course_relevance_of_program">Course Relevance of Program:</label>
+            <textarea id="id_course_relevance_of_program" name="course_relevance_of_program" placeholder="Enter relevance of program"></textarea>
+        </div>
+        
+        <div>
+            <label for="id_course_recommended_learners">Course Recommended Learners:</label>
+            <textarea id="id_course_recommended_learners" name="course_recommended_learners" placeholder="Enter recommended learners"></textarea>
+        </div>
+        
+        <div>
+            <label for="id_course_what_will_learn">Course What Will Learn:</label>
+            <textarea id="id_course_what_will_learn" name="course_what_will_learn" placeholder="Enter what will learn"></textarea>
+        </div>
+        
+        <div>
+            <label for="id_course_img">Course Image:</label>
+            <input type="file" id="id_course_img" name="course_img" accept="image/*"> 
+        </div>
+        
+        <!-- Foreign Keys and Many to Many Fields -->
+        <div>
+            <label for="id_course_medium_of_communication">Course Medium of Communication:</label> 
+            {% for language in languages %}
+            <input type="radio" name="course_medium_of_communication" value="{{ language.id }}">{{ language.lang_name }}</input>
+            {% endfor %}
+            <!-- Options will be populated dynamically -->
+        </div>
+        
+        <div>
+            <label for="id_course_location">Course Location:</label>
+            {% for location in locations %}
+            <input type="radio" name="course_location" value="{{location.id }}">{{ location.location_name }}</input>
+            {% endfor %}
+            <!-- Options will be populated dynamically -->
+        </div>
+
+        <div>
+            <label for="id_course_mode">Course Mode:</label>
+            {% for mode in modes %}
+            <input type="radio" name="course_mode" value="{{mode.id}}">
+            <label>{{ mode.type }}</label>
+            {% endfor %}
+        </div>
+        
+        <div>
+            <label for="id_course_authors">Course Authors:</label>
+            {% for author in authors %}
+            <input type="checkbox" name="course_authors" value="{{author.id}}">
+            <label >{{ author.author_name }}</label>
+            {% endfor %}
+        </div>
+        
+        <div>
+            <label for="id_course_collab">Course Collaborators:</label>
+            {% for collab  in collaborators %}
+            <input type="checkbox" name="course_collab" value="{{ collab.id }}">
+            <label>{{ collab.collab_name }}</label>
+            {% endfor %}
+        </div>
+        
+        <div>
+            <label for="id_course_producers">Course Producers:</label>
+            {% for producer in producers %}
+            <input type="checkbox" name="course_producers" value="{{producer.id}}">
+            <label>{{ producer.producer_name }}</label>
+            {% endfor %}
+        </div>
+        
+        <div>
+            <label for="id_course_sponsors">Course Sponsors:</label>
+            {% for sponsor in sponsors %}
+            <input type="checkbox" name="course_sponsors" value="{{sponsor.id}}">
+            <label >{{ sponsor.sponsor_name }}</label>
+            {% endfor %}
+        </div>
+        
+        <div>
+            <label for="id_course_topic">Course Topic:</label>
+            {% for topic in topics %}
+            <input type="checkbox" name="course_topic" value="{{topic.id}}">
+            <label>{{ topic.topic_name }}</label>
+            {% endfor %}
+        </div>
+                
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
+
+
+  

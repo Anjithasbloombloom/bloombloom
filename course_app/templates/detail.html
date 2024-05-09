@@ -1,0 +1,84 @@
+{% load static %}
+{% include "header.html" %}
+<link rel="stylesheet" href="{% static 'css/course.css' %}">
+<link rel="stylesheet" href="{% static 'css/explore.css' %}" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+<script src="{% static 'js/functions.js' %}"></script>
+{% block styles %}
+<style>
+  .speakers-container {
+    display: flex;
+    padding:70px;
+    padding-bottom: 30px;
+  }
+    .khan {
+        width: 340px; 
+        height: 200px; 
+        background-color: #5f5b5b; 
+        margin: 5px;
+
+    }
+    .speakers{
+      margin-top:-5px;
+      padding:20px;
+    }
+    .latest{
+      width: 340px; 
+        height: 200px; 
+    }
+</style>
+{% endblock %}
+{% block body %}
+<div class="whole-body">
+  <!--for banner-->
+  <div class="banner-img-container"></div>
+  <!--for course details-->
+  <div class="course-details-container"></div>
+  <!--for speakers-->
+  <div class="speakers">
+    <h2>speakers</h4>
+  </div>
+  <div class="speakers-container">
+    
+  {% for item in tag %}
+  <div class="khan">
+    <img src="image.jpg" alt="Image Description">
+    {{ item.sponsor_name }}
+  </div>
+  {% endfor %}
+</div>
+  <!--latest launches-->
+  <div class="latest">
+    {% for test in latest %}
+    {{ test.course_name }}
+  <label for="id_course_rating">Course Rating:</label>
+    {{test.course_rating}}
+
+  </div>
+  {% endfor %}
+  
+  </div>
+  <div>
+    {% if last_course_authors %}
+    <h2>Last Course Authors:</h2>
+    <ul>
+        {% for author in last_course_authors %}
+            <li>{{ author.author_name }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No courses found.</p>
+{% endif %}
+</div>
+  <!--for curriculum-->
+  <div class="curriculum-container"></div>
+  <!--for similar courses-->
+  <div class="similar-courses-container"></div>
+  <!--for similar events-->
+  <div class="similar-events-container"></div>
+</div>
+<script>
+</script>
+
+{% endblock %}
+{% include 'footer.html' %}
