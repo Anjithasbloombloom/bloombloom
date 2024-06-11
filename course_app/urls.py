@@ -11,7 +11,7 @@ urlpatterns =[
     path('detail/',views.detail,name='detail'),
     path('latest/',views.latest_lauches,name='latest_lauches'),
     path('indexes/',views.indexes,name='indexes'),
-    path('my_view/',views.my_view,name="my_view"),
+    # path('my_view/',views.my_view,name="my_view"),
     # path('index/',views.index,name='index'),
 
     

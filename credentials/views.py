@@ -24,7 +24,20 @@ from allauth.socialaccount.models import SocialAccount
 from datetime import datetime
 from .models import User_detail
 from django.contrib.auth.decorators import login_required
-from .models import Purpose, User_detail,Interest
+from .models import Purpose, User_detail,Interest,AddEducation
+
+from django.http import HttpResponse
+from django.shortcuts import render
+from course_app.models import Course
+from course_app.models import Stage
+# from .models import Language,Location,Mode,Authors,Collaborators,Topics,Producers,Sponsors
+from django.shortcuts import redirect,get_object_or_404
+# from .models import Event
+from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
+from django.views.generic import CreateView
+
 
 def header(request):
     return render(request,'header.html')
@@ -107,7 +120,7 @@ def signup_password(request):
         password=request.POST.get('password')
         confirm_password=request.POST.get('confirm_password')
         if password==confirm_password:
-            request.session['password']=request.POST['password']
+            request.session['password']=make_password(password)
             return redirect('dob')
         return render(request, 'accounts/signup_password.html', {'message':"passwords don't match. try again"})
     return render(request,'accounts/signup_password.html')
@@ -128,18 +141,31 @@ def signup_dob(request):
         modified_post['password1'] = request.session.get('password')
         modified_post['password2'] = request.session.get('password')
         modified_post['phone_number'] = request.session.get('number')
-        form = CustomUserCreationForm(modified_post)
-        print(modified_post)
-        if form.is_valid():
-            form.save()
-            #new
-            user = authenticate(request, email=request.session.get('email'), password=request.session.get('password'))
-            if user is not None:
-                login(request, user)
-            return redirect('save_top_purposes_view')
-    else:
-        form = CustomUserCreationForm()
-    return render(request, 'accounts/dob.html',{'form':form})
+        print("dbsjbjbd")
+        user=CustomUser.objects.create(date_of_birth=date_of_birth, email=request.session.get('email'),username=request.session.get('name'), password=request.session.get('password'), phone_number=request.session.get('number'), location=request.session.get('location'))
+            
+                # Authenticate and login the user
+        user = authenticate(request, email=request.session.get('email'), password=request.session.get('password'))
+        print("hgcbcbv",user)
+        if user is not None:
+            login(request, user)
+        
+        return redirect('save_top_purposes_view')
+    return render(request, 'accounts/dob.html')
+
+
+    #     form = CustomUserCreationForm(modified_post)
+    #     if form.is_valid():
+    #         form.save()
+    #         #new
+    #         user = authenticate(request, email=request.session.get('email'), password=request.session.get('password'))
+    #         if user is not None:
+    #             login(request, user)
+    #         return redirect('save_top_purposes_view')
+    # else:
+    #     form = CustomUserCreationForm()
+    # return render(request, 'accounts/dob.html',{'form':form})
+    # return render(request, 'accounts/dob.html')
 
 
 @login_required
@@ -160,28 +186,59 @@ def save_top_purposes_view(request):
     return render(request, 'accounts/purposes.html', {'purposes': purposes})
 
 
+# @login_required
+# def save_top_interest_view(request):
+#     if request.method == 'POST':
+#         selected_interests_data = request.POST.get('selected_interests')
+#         if selected_interests_data:
+#             selected_interest_ids = selected_interests_data.split(',')[:3]
+#             user = request.user
+#             if user:
+#                 user_detail, created = User_detail.objects.get_or_create(user=user)
+#                 user_detail.interests.clear()
+#                 for interest_id in selected_interest_ids:
+#                     try:
+#                         interest = Interest.objects.get(id=int(interest_id))
+#                         user_detail.interests.add(interest)
+#                     except Interest.DoesNotExist:
+#                         # Handle the case when the interest with the specified ID does not exist
+#                         pass  # You can log the error or perform other actions as needed
+#                 return redirect('profile')
+#         # If selected_interests data is missing or empty, handle it gracefully
+#         # Redirect or render an error message as needed
+#     interests = Interest.objects.all()
+#     return render(request, 'accounts/interest.html', {'interests': interests})
+
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from .models import Interest, User_detail
+
 @login_required
 def save_top_interest_view(request):
+    user = request.user
+    user_detail, created = User_detail.objects.get_or_create(user=user)
+
     if request.method == 'POST':
         selected_interests_data = request.POST.get('selected_interests')
         if selected_interests_data:
             selected_interest_ids = selected_interests_data.split(',')[:3]
-            user = request.user
-            if user:
-                user_detail, created = User_detail.objects.get_or_create(user=user)
-                user_detail.interests.clear()
-                for interest_id in selected_interest_ids:
-                    try:
-                        interest = Interest.objects.get(id=int(interest_id))
-                        user_detail.interests.add(interest)
-                    except Interest.DoesNotExist:
-                        # Handle the case when the interest with the specified ID does not exist
-                        pass  # You can log the error or perform other actions as needed
-                return redirect('profile')
-        # If selected_interests data is missing or empty, handle it gracefully
-        # Redirect or render an error message as needed
+            user_detail.interests.clear()
+            for interest_id in selected_interest_ids:
+                try:
+                    interest = Interest.objects.get(id=int(interest_id))
+                    user_detail.interests.add(interest)
+                except Interest.DoesNotExist:
+                    pass
+            return redirect('test1')
+
     interests = Interest.objects.all()
-    return render(request, 'accounts/interest.html', {'interests': interests})
+    selected_interests = user_detail.interests.all()
+    return render(request, 'accounts/interest.html', {
+        'interests': interests,
+        'selected_interests': selected_interests,
+    })
+
+
 
 
 def profile(request):
@@ -191,7 +248,7 @@ def profile(request):
 #Modified code for login using normal way and social authenticaation
 class CustomLoginView(LoginView):
     template_name = 'accounts/login.html'
-    success_url = reverse_lazy('profile')  # Default success URL
+    success_url = reverse_lazy('save_top_interest_view')  # Default success URL
 
     def post(self, request, *args, **kwargs):
         email = request.POST.get('email')
@@ -285,10 +342,177 @@ def user_added(sender, instance, created, **kwargs):
 def test(request):
     return render(request,'test.html')
 
+# @login_required
+# def test1(request):
+#     try:
+#         # Get the current user's User_detail object
+#         user_detail = User_detail.objects.get(user=request.user)
+#     except User_detail.DoesNotExist:
+#         # If User_detail does not exist for the authenticated user, handle it gracefully
+#         return redirect('profile') 
+#     # Assuming User_detail exists, proceed with the rest of the code
+#     interest_whole = Interest.objects.all()
+#     interests_selected = user_detail.interests.all()
+#     interest_whole = interest_whole.exclude(id__in=interests_selected)
+#     return render(request, 'accounts/test1.html', {'user_detail': user_detail, 'interest_whole': interest_whole})
+
+# @login_required
+# def test1(request):
+#     if request.method == 'POST':
+#         user = request.user
+#         print(User_detail.objects.get(user=request.user))
+#         try:
+#             user_detail = User_detail.objects.get(user=request.user)  # Assuming there is a one-to-one relationship between CustomUser and User_detail
+#         except User_detail.DoesNotExist:
+#             user_detail = User_detail.objects.create(user=user)
+        
+#         print("User Detail:", user_detail)
+        
+        # Retrieve form data
+        # school_name = request.POST.get('schoolName')
+        # degree = request.POST.get('degree')
+        # field_of_study = request.POST.get('fieldOfStudy')
+        # # start_date = request.POST.get('startDate')
+        # month = request.POST.get('startDate')
+        # year = request.POST.get('startDateYear')
+        # print("month",request.POST)
+        # day=1
+        # start_date = datetime.strptime(f"{year}-{month}-{day}", '%Y-%m-%d').date()
+        # month = request.POST.get('endDate')
+        # year = request.POST.get('endDateYear')
+        # day=1
+        # end_date = datetime.strptime(f"{year}-{month}-{day}", '%Y-%m-%d').date()
+        
+        # Validate form data
+        # if not school_name or not degree or not field_of_study or not start_date:
+        #     return HttpResponseBadRequest("Missing required fields")
+        
+        # Save education information
+    #     addeducation = AddEducation.objects.create(
+    #         user_detail=user_detail,
+    #         school=school_name,
+    #         degree=degree,
+    #         field_of_study=field_of_study,
+    #         start_date=start_date,
+    #         end_date=end_date
+    #     )
+        
+    #     return redirect('profile')
+
+    # else:    
+    #     user = request.user
+    #     user_detail, created = User_detail.objects.get_or_create(user=user)
+    #     interests = Interest.objects.all()
+    #     selected_interests = user_detail.interests.all()
+
+    # return render(request, 'accounts/test1.html', {
+    #     'interests': interests,
+    #     'selected_interests': selected_interests,
+    # })
 
 
 
 
+# from django.http import JsonResponse
+# from django.views.decorators.csrf import csrf_exempt
+
+# from django.http import JsonResponse
+
+# @login_required
+
+# @login_required
+# def update_interest(request):
+#     if request.method == 'POST' and request.headers.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest':
+#         interest_id = request.POST.get('interest_id')
+#         selected = request.POST.get('selected') == 'true'
+#         try:
+#             interest = Interest.objects.get(id=interest_id)
+#             user_detail = User_detail.objects.get(user=request.user)
+#             if selected:
+#                 user_detail.interests.add(interest)
+#                 print("gfggggggggg",user_detail.interests)
+#             else:
+#                 user_detail.interests.remove(interest)
+#                 print("remove",user_detail.interests)
+#             return JsonResponse({'success': True})
+#         except (Interest.DoesNotExist, User_detail.DoesNotExist) as e:
+#             return JsonResponse({'success': False, 'error': str(e)})
+#     return JsonResponse({'success': False, 'error': 'Invalid request'})
+
+
+
+
+
+
+from datetime import datetime
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseBadRequest
+from .models import User_detail, AddEducation, Interest
+
+@login_required
+def test1(request):
+    if request.method == 'POST':
+        user = request.user
+        print(User_detail.objects.get(user=request.user))
+        
+        try:
+            user_detail = User_detail.objects.get(user=request.user)
+        except User_detail.DoesNotExist:
+            user_detail = User_detail.objects.create(user=user)
+        
+        print("User Detail:", user_detail)
+        
+        # Retrieve form data
+        school_name = request.POST.get('schoolName')
+        degree = request.POST.get('degree')
+        field_of_study = request.POST.get('fieldOfStudy')
+        
+        # Start date
+        month = request.POST.get('startDate')
+        year = request.POST.get('startDateYear')
+        day = 1
+        
+        try:
+            start_date = datetime.strptime(f"{year}-{month}-{day}", '%Y-%m-%d').date()
+        except (ValueError, TypeError):
+            start_date = None
+        
+        # End date
+        month = request.POST.get('endDate')
+        year = request.POST.get('endDateYear')
+        
+        try:
+            end_date = datetime.strptime(f"{year}-{month}-{day}", '%Y-%m-%d').date()
+        except (ValueError, TypeError):
+            end_date = None
+        
+        # Validate form data
+        if not school_name or not degree or not field_of_study or not start_date or not end_date:
+            return HttpResponseBadRequest("*indicates required")
+        
+        # Save education information
+        addeducation = AddEducation.objects.create(
+            user_detail=user_detail,
+            school=school_name,
+            degree=degree,
+            field_of_study=field_of_study,
+            start_date=start_date,
+            end_date=end_date
+        )
+        
+        return redirect('profile')
+
+    else:    
+        user = request.user
+        user_detail, created = User_detail.objects.get_or_create(user=user)
+        interests = Interest.objects.all()
+        selected_interests = user_detail.interests.all()
+
+    return render(request, 'accounts/test1.html', {
+        'interests': interests,
+        'selected_interests': selected_interests,
+    })
 
 
 

@@ -9,7 +9,7 @@ class CustomUser(AbstractUser):
     phone_number = models.CharField(max_length=20, blank=True, null=True)
     date_of_birth = models.DateField(blank=True, null=True)
     location = models.CharField(max_length=100, blank=True, null=True)
-
+    
     # Override fields to remove them from the built-in user model
     last_login = None
     # is_superuser = None
@@ -48,8 +48,6 @@ class User_detail(models.Model):
     interests = models.ManyToManyField(Interest)
 
 
-
-
 # added **kwargs to accept unexpected values
 
 class CustomAccountAdapter(DefaultAccountAdapter):
@@ -58,6 +56,17 @@ class CustomAccountAdapter(DefaultAccountAdapter):
 
     def clean_username(self, username,**kwargs):
         return username
+    
+
+class AddEducation(models.Model):
+    user_detail=models.ForeignKey(User_detail,on_delete=models.CASCADE)
+    school = models.TextField(blank=True, null=True)
+    degree = models.TextField(blank=True, null=True)
+    field_of_study=models.CharField(max_length=20, blank=True, null=True)
+    start_date= models.DateField(blank=True, null=True)
+    end_date = models.DateField(blank=True, null=True)
+
+
 
 
 

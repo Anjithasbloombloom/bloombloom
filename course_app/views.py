@@ -19,7 +19,7 @@ from .models import Authors, Language, Location, Collaborators, Mode, Sponsors, 
 def create_course(request):
     if request.method == 'POST':
         keys = list(request.POST.keys())
-        keys_part = keys[1:22]
+        keys_part = keys[1:23]
         newdict={}
         for key in keys_part:
             newdict[key]=request.POST[key]
@@ -103,7 +103,6 @@ class select_featured(View):
 
 def page(request):
     key =Course.objects.all()
-    print("trai",key)
     return render(request, 'id.html', {'key': key})
 
 def delete(request,id):

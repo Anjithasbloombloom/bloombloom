@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Course</title>
+</head>
+<body>
+    <h1>Create Event</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>
+            <label for="id_event_name">Event Name:</label>
+            <input type="text" id="id_event_name" name="event_name" placeholder="Enter event name" required>
+        </div>
+        
+        <div>
+            <label for="id_event_description">Event Description:</label>
+            <textarea id="id_event_description" name="event_description" placeholder="Enter event description" required></textarea>
+        </div>
+        
+        <div>
+            <label for="id_event_date">Event Date:</label>
+            <input type="date" id="id_event_date" name="event_date" required>
+        </div>
+        
+        <div>
+            <label for="id_event_price">Event Price:</label>
+            <input type="number" id="id_event_price" name="event_price" placeholder="Enter event price" required>
+        </div>
+        
+        <div>
+            <label for="id_event_learning_credits">Event Learning Credits:</label>
+            <input type="number" id="id_event_learning_credits" name="event_learning_credits" placeholder="Enter learning credits" required>
+        </div>
+        
+        <div>
+            <label for="id_event_lifetime_learners">Event Lifetime Learners:</label>
+            <input type="number" id="id_event_lifetime_learners" name="event_lifetime_learners" placeholder="Enter lifetime learners">
+        </div>
+        
+        <div>
+            <label for="id_event_rating">Event Rating:</label>
+            <input type="number" id="id_event_rating" name="event_rating" step="0.01" placeholder="Enter event rating" required>
+        </div>
+        
+        <div>
+            <label for="id_event_num_ratings">Event Number of Ratings:</label>
+            <input type="number" id="id_event_num_ratings" name="event_num_ratings" placeholder="Enter number of ratings" required>
+        </div>
+        
+        <div>
+            <label for="id_event_first_published">Event First Published:</label>
+            <input type="date" id="id_event_first_published" name="event_first_published" required>
+        </div>
+        
+        <div>
+            <label for="id_event_times_launched">Event Times Launched:</label>
+            <input type="number" id="id_event_times_launched" name="event_times_launched" placeholder="Enter times launched" required>
+        </div>
+        
+        <div>
+            <label for="id_event_num_interested">Event Number of Interested:</label>
+            <input type="number" id="id_event_num_interested" name="event_num_interested" placeholder="Enter number of interested">
+        </div>
+        
+        <div>
+            <label for="id_event_num_hours">Event Number of Hours:</label>
+            <input type="number" id="id_event_num_hours" name="event_num_hours" placeholder="Enter number of hours">
+        </div>
+        
+        <div>
+            <label for="id_event_num_days">Event Number of Days:</label>
+            <input type="number" id="id_event_num_days" name="event_num_days" placeholder="Enter number of days">
+        </div>
+        
+        <div>
+            <label for="id_event_skills">Event Skills:</label>
+            <input type="text" id="id_event_skills" name="event_skills" placeholder="Enter event skills">
+        </div>
+        
+        <div>
+            <label for="id_more_about_event">More About Event:</label>
+            <textarea id="id_more_about_event" name="more_about_event" placeholder="Enter more about event"></textarea>
+        </div>
+        
+        <div>
+            <label for="id_event_relevance_of_program">Event Relevance of Program:</label>
+            <textarea id="id_event_relevance_of_program" name="event_relevance_of_program" placeholder="Enter relevance of program"></textarea>
+        </div>
+        
+        <div>
+            <label for="id_event_recommended_learners">Event Recommended Learners:</label>
+            <textarea id="id_event_recommended_learners" name="event_recommended_learners" placeholder="Enter recommended learners"></textarea>
+        </div>
+        
+        <div>
+            <label for="id_event_what_will_learn">Event What Will Learn:</label>
+            <textarea id="id_event_what_will_learn" name="event_what_will_learn" placeholder="Enter what will learn"></textarea>
+        </div>
+        
+        <div>
+            <label for="id_event_img">Event Image:</label>
+            <input type="file" id="id_event_img" name="event_img" accept="image/*"> 
+        </div>
+        <div>
+            <label for="id_event_time">Event time:</label>
+            <input type="number" id="id_event_time" name="event_time" placeholder="">
+        </div>
+        
+        <!-- Foreign Keys and Many to Many Fields -->
+        <div>
+            <label for="id_event_medium_of_communication">Event Medium of Communication:</label> 
+            {% for language in communication %}
+            <input type="radio" name="event_medium_of_communication" value="{{ language.id }}">{{ language.lang_name }}</input>
+            {% endfor %}
+            <!-- Options will be populated dynamically -->
+        </div>
+        
+        <div>
+            <label for="id_course_location">Event Location:</label>
+            {% for location in locations %}
+            <input type="radio" name="event_location" value="{{location.id }}">{{ location.location_name }}</input>
+            {% endfor %}
+            <!-- Options will be populated dynamically -->
+        </div>
+
+        <div>
+            <label for="id_event_mode">Event Mode:</label>
+            <select id="id_event_mode" name="event_mode">
+                {% for mode in modes %}
+                    <option value="{{ mode.id }}">{{ mode.type }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <div>
+            <label for="id_event_authors">Event Authors:</label>
+            {% for author in authors %}
+            <input type="checkbox" name="event_authors" value="{{author.id}}">
+            <label >{{ author.author_name }}</label>
+            {% endfor %}
+        </div>
+        
+        <div>
+            <label for="id_course_collab">Event Collaborators:</label>
+            {% for collab  in collaborators %}
+            <input type="checkbox" name="event_collab" value="{{ collab.id }}">
+            <label>{{ collab.collab_name }}</label>
+            {% endfor %}
+        </div>
+        
+        <div>
+            <label for="id_event_producers">Event Producers:</label>
+            {% for producer in producers %}
+            <input type="checkbox" name="event_producers" value="{{producer.id}}">
+            <label>{{ producer.producer_name }}</label>
+            {% endfor %}
+        </div>
+        
+        <div>
+            <label for="id_events_sponsors">Event Sponsors:</label>
+            {% for sponsor in sponsors %}
+            <input type="checkbox" name="event_sponsors" value="{{sponsor.id}}">
+            <label >{{ sponsor.sponsor_name }}</label>
+            {% endfor %}
+        </div>
+        
+        <div>
+            <label for="id_course_topic">Event Topic:</label>
+            {% for topic in topics %}
+            <input type="checkbox" name="event_topic" value="{{topic.id}}">
+            <label>{{ topic.topic_name }}</label>
+            {% endfor %}
+        </div>
+                
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
+
+
+  

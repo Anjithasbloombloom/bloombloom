@@ -23,7 +23,7 @@ class Event(models.Model):
     event_num_interested = models.IntegerField()
     event_num_hours = models.IntegerField()
     event_num_days = models.IntegerField()
-    event_topic=models.CharField(max_length=255)
+    # event_topic=models.CharField(max_length=255)
     event_skills=models.CharField(max_length=200)
     more_about_event=models.TextField()
     event_relevance_of_program=models.TextField()
